@@ -1,0 +1,60 @@
+1. Write a query to get Product name and quantity/unit.
+2. Write a query to get current Product list (Product ID and name).
+3. Write a query to get discontinued Product list (Product ID and name).
+4. Write a query to get most expense and least expensive Product list (name and unit price).
+5. Write a query to get Product list (id, name, unit price) where current products cost less than $20.
+6. Write a query to get Product list (id, name, unit price) where products cost between $15 and $25.
+7. Write a query to get Product list (name, unit price) of above average price.
+8. Write a query to get Product list (name, unit price) of ten most expensive products.
+9. Write a query to count current and discontinued products.
+10. Write a query to get Product list (name, units on order , units in stock) of stock is less than the quantity on order.
+
+---
+
+1. How many customers do we have in our database?
+2. How many of our customer names begin with the letter "b"?
+3. How many of our customer names contain the letter "s" ?
+4. How many customers do we have in each city?
+5. What are the top three cities where we have our most customers?
+6. Who has been our top customer - please list CustomerID, CompanyName, ContactName for the customer that we have sold the most to?
+7. Who has been our top customer - please list CustomerID, CompanyName in the year 1997?
+8. Name the top 3 countries that we ship our orders to?
+9. Which shipper do we use the most to ship our orders out through?
+10. List the following employee information (EmployeeID, LastName, FirstName, ManagerLastName, ManagerFirstName)
+11. What are the last names of all employees who were born in the month of November?
+12. List each employee (lastname, firstname, territory) and sort the list by territory and then by employee last name. Remember employees may work for more than one territory.
+13. In terms of sales value, what has been our best selling product of all time?
+14. In terms of sales value, and only include products that have at least been sold once, which has been our worst selling product of all time? 
+15. In terms of sales value, which month has been traditionally best for sales?
+16. What is the name of our best sales person?
+17. Product report (productID, ProductName, Supplier Name, Product Category). Order the list by product category.
+18. Produce a count of the employees by each sales region
+19. List the dollar values for sales by region?
+20. What is the average value of a sales order?
+21. List orders (OrderID, OrderDate, Customer Name) where the total order value is greater than the average value of a sales order?
+22. Produce a customer report (must also include those we have not yet done business with) showing CustomerID, Customer name and total sales made to that customer
+23. List all products that need to be re-ordered. Do not include discontinued products in this report.
+24. List all customers that we made a sale to in the year 1996
+25. List all customers that we did not make a sale to in the year 1996
+
+---
+
+https://www.chegg.com/homework-help/questions-and-answers/sql-assignment-2-use-northwind-database-sql-assignments-going-forward-1-list-complete-cust-q66345772#question-transcript
+1. List the complete customers table.
+2. List all products. Sort by unitprice then by productname.
+3. Show the ProductID, ProductName, UnitPrice, UnitsInStock and UnitsOnOrder for all products that have been discontinued with a value greater than or equal to 1.
+4. List the Customerld, the Company Name and the first 8 characters in the company name using the customer table.
+5. List the Customerld and Freight charges for the customers with the 10 largest freight charges. Sort Freight charges in descending order.
+6. List the CustomerID and Company Name for Customers that contain ‘Market in their name. 
+7. Northwind has finally decided to give all employees an email address. The domain name will be northwind.com. 
+   Create a list of employee first and last names and email addresses in the format of first initial. Lastname@northwind.com. 
+   (Note the period between first initial and last name) Their ISP requires all email address to be submitted in lowercase. Sort by last name in ascending order. 
+8. List all customers who live in the following countries: France, Germany, USA or UK. Use the IN Keyword. Sort by Country.
+9. List the largest 5 percent of freight charges along with the CustomerID.
+10. The employee table Notes column contains a great deal of information concerning each employee including the languages they speak. 
+    Northwind needs someone who speaks German to represent the company at a meeting. List the LastName, HomePhone and Notes of any employee with German in the notes
+11. List all orders with an order date in July 2014. Use the Between Keyword
+12. List all orders with an order date in July 2014. DO NOT use the between Keyword
+13. List all orders with no shipped date
+14. List the CustomerID from the orders table. List each CustomerID only once. Sort in descending order.
+15. List the Customerld, City, Region and Postal Code for all customers. Sort by city, then by customer ID
