@@ -1,13 +1,12 @@
 """add region table
 
 Revision ID: 7c53011d1fb2
-Revises: 
-Create Date: 2023-01-14 14:06:36.785102
+Revises:
+Create Date: 2023-01-14 14:12:59.336633
 
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "7c53011d1fb2"
@@ -22,7 +21,7 @@ def upgrade() -> None:
         "region",
         sa.Column("region_id", sa.SmallInteger(), nullable=False),
         sa.Column("region_description", sa.String(length=60), nullable=False),
-        sa.PrimaryKeyConstraint("region_id"),
+        sa.PrimaryKeyConstraint("region_id", name=op.f("pk_region")),
     )
     # ### end Alembic commands ###
 
