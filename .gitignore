@@ -160,3 +160,10 @@ cython_debug/
 #.idea/
 
 .vscode
+
+
+.coverage_report
+backend
+
+# SQLTools vscode extension
+*.session.sql
