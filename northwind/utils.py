@@ -22,15 +22,13 @@ def make_object_factory(c: Type[T], *defaults, **kwdefaults):
     return factory
 
 
-def make_api_url(prefix: str = "/", *args, **kwargs) -> str:
+def make_api_url(prefix: str = "/", *path, **query) -> str:
     url = f"{prefix}"
 
-    if args:
-        path = "/".join(args)
-        url = f"{url}/{path}"
+    if path:
+        url = f"{url}/{'/'.join(path)}"
 
-    if kwargs:
-        query_params = "&".join([f"{k}={v}" for k, v in kwargs.items()])
-        url = f"{url}?{query_params}"
+    if query:
+        url = f"{url}?{'&'.join([f'{k}={v}' for k, v in query.items()])}"
 
     return url
