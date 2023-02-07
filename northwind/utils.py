@@ -5,13 +5,16 @@ T = TypeVar("T")
 
 
 def make_object_factory(c: Type[T], *defaults, **kwdefaults):
-    def factory(*args, batch: int = 1, **kwargs) -> T:
-        if batch < 1:
-            raise ValueError("'batch' must be greater than 1")
-        if batch == 1:
-            return c(*args, **kwargs)
-        else:
+    def factory(*args, batch: int | None = None, **kwargs) -> T:
+        # TODO: implement overriding defaults values
+
+        if batch is not None:
+            if batch < 1:
+                raise ValueError("'batch' must be greater than 1")
+
             return [c(*args, **kwargs) for _ in range(batch)]
+        else:
+            return c(*args, **kwargs)
 
     if defaults:
         factory = partial(factory, *defaults)
