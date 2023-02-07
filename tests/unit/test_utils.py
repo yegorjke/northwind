@@ -101,6 +101,7 @@ def test_make_object_factory_override_passed_default_values(default_a, default_b
         ("/api", ["resource", "1"], {"q": 1, "w": 2}, "/api/resource/1?q=1&w=2"),
         ("/api", None, {"q": 1}, "/api?q=1"),
         ("/api", None, {"q": 1, "w": 2}, "/api?q=1&w=2"),
+        ("/api", None, {"q": None, "w": None}, "/api"),
     ],
 )
 def test_make_api_url(prefix: str, path: list[str], query: dict[str, Any], expected: str):
