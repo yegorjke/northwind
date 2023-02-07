@@ -167,3 +167,5 @@ backend
 
 # SQLTools vscode extension
 *.session.sql
+
+.DS_Store
