@@ -1,29 +1,37 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Body, Depends, Path, Query
 
-from northwind.database import get_session
-from northwind.models.region import Region
-from northwind.schemas.region import RegionDetail
+from northwind.models.region import RegionService
+from northwind.schemas.region import Region, RegionDB
 
-router = APIRouter(prefix="/regions")
+router = APIRouter(
+    prefix="/regions",
+)
+
+
+@router.post("/", status_code=201)
+async def create_region(body: Region = Body(), service: RegionService = Depends()) -> RegionDB:
+    return await service.create(body.dict())
 
 
 @router.get("/")
-async def get_regions(session_local: AsyncSession = Depends(get_session)):
-    async with session_local() as session:
-        async with session.begin():
-            stmt = select(Region)
-            regions = (await session.execute(stmt)).scalars().all()
+async def retrieve_list_of_regions(
+    offset: int | None = Query(default=None, ge=0),
+    limit: int | None = Query(default=None, ge=0),
+    service: RegionService = Depends(),
+) -> list[RegionDB]:
+    return await service.retrieve(offset=offset, limit=limit)
 
-    return regions
+
+@router.get("/{id}/")
+async def retrieve_region_details(id: int = Path(gt=0), service: RegionService = Depends()) -> RegionDB:
+    return await service.retrieve(id)
 
 
-@router.get("/{id}")
-async def get_region_details(id: int, session_local: AsyncSession = Depends(get_session)) -> RegionDetail:
-    async with session_local() as session:
-        async with session.begin():
-            stmt = select(Region).filter(Region.region_id == id)
-            region = (await session.execute(stmt)).scalars().one()
+@router.put("/{id}/")
+async def update_region(id: int = Path(gt=0), body: Region = Body(), service: RegionService = Depends()) -> RegionDB:
+    return await service.update(id, body.dict(exclude_unset=True))
 
-    return region
+
+@router.delete("/{id}/")
+async def delete_region(id: int = Path(gt=0), service: RegionService = Depends()) -> RegionDB:
+    return await service.delete(id)
