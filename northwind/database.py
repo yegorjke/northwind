@@ -1,6 +1,6 @@
 import os
 from contextlib import asynccontextmanager
-from typing import Any, Type, TypeVar
+from typing import Any, AsyncIterator, Type, TypeVar
 
 import sqlalchemy as sa
 from sqlalchemy import MetaData
@@ -49,7 +49,7 @@ Base = declarative_base(metadata=metadata)
 
 
 @asynccontextmanager
-async def get_session(asyncsessionmaker=AsyncSessionLocal):
+async def get_session(asyncsessionmaker=AsyncSessionLocal) -> AsyncIterator[AsyncSession]:
     try:
         async with asyncsessionmaker() as session:
             yield session
@@ -112,7 +112,6 @@ class RetrieveMixin:
                     stmt = stmt.where(_pk_equals_id(model, id))
                     result = (await session.execute(stmt)).scalars().one()
                 else:
-                    # TODO: offset and limit must be > 0. create validator
                     if offset:
                         stmt = stmt.offset(offset)
                     if limit:
@@ -128,11 +127,8 @@ class UpdateMixin:
         async with get_session() as session:
             async with session.begin():
                 # look up
-                stmt = sa.select(model).where(_pk_equals_id(model, id))  # maybe: .one()
+                stmt = sa.select(model).where(_pk_equals_id(model, id))
                 record = (await session.execute(stmt)).scalars().one()
-
-                # if not record:
-                #     raise RuntimeError("record was not found")  # FIXME: replace with a specific error
 
                 # update
                 stmt = (
@@ -154,11 +150,8 @@ class DeleteMixin:
         async with get_session() as session:
             async with session.begin():
                 # look up
-                stmt = sa.select(model).where(_pk_equals_id(model, id))  # maybe: .one()
+                stmt = sa.select(model).where(_pk_equals_id(model, id))
                 record = (await session.execute(stmt)).scalars().one()
-
-                # if not record:
-                #     raise RuntimeError("record was not found")  # FIXME: replace with a specific error
 
                 # delete
                 stmt = sa.delete(model).where(_pk_equals_id(model, id)).execution_options(synchronize_session="fetch")
